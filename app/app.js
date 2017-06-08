@@ -11,12 +11,12 @@ app.set('view engine', 'ejs');
 app.use(logger.express);
 
 // ルーティング
-
+app.use(express.static('./public'));
 app.get("/survey/:id", function(req, res, next){
     console.log(req.params.id);
     survey.findServey(req.params.id, function(success, result) {
         if (success) {
-            res.render('index', {survey: result});
+            res.render('index', {surveyList: result});
         } else {
             res.render('error');
         }

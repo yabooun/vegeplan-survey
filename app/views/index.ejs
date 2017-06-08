@@ -1,4 +1,58 @@
+<%# 質問表示 %>
+<% question = function(index, duration, survey){ %>
+    <div class="question question-<%=index%>">
+        <% type = survey.type %>
+        <% list = survey.list %>
+
+        <%# 質問 %>
+        <div class="question-text">
+            <p>質問<%=index %>. <%=survey.description %></p>
+        </div>
+        <%# 回答 %>
+            <div class="question-answer">
+                <% if(type == 1) { 
+                    selectList = list.split(',');
+                %>
+                <select name="<%=survey.name %>">
+                    <% selectList.forEach(function (contents, index) { %>
+                        <option value="<%=contents %>"><%=contents %></option>
+                    <% }); %>
+                </select>
+                <% } else if(type == 2) { %>
+                    <textarea name="<%=survey.name %>" rows="5" placeholder="<%=survey.description%>"></textarea>
+                <% } else if(type == 3) { %>
+                    <input name="<%=survey.name %>" type="range" min="1" max="5" value="" class="input-star-range" /> 
+                <% } %>
+            </div>
+        <%# 次へ %>
+        <button onclick="window.showNext(<%=index %>)">
+            <div>次へ</div>
+            <div><%=index %> / <%=duration %></div>
+        </button>
+    </div>
+<% }; %>
+
+<%# 本体 %>
 <!DOCTYPE html>
 <html lang="ja">
-    <%= JSON.stringify(survey) %>
+    <header>
+        <title>VegePlanアンケート</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+        <meta name="robots" content="noindex,nofollow">
+        <meta name="author" content="Awcle.Inc">
+        <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    </header>
+    <div class="header">
+        <div class="header-title">VegePlanアンケート</div>
+    </div>
+
+    <div class="contents">
+        <% surveyList.forEach(function(survey, index) { %>
+            <% question(index+1, surveyList.length, survey); %>
+        <% }); %>
+    </div>
+
+    <div class="footer">
+        <div class="footer-cp">Copyright © 2017 Awcle.Inc All Rights Reserved.</div>
+    </div>
 </html>
