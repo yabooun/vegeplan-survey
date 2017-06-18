@@ -7,6 +7,13 @@
     "backups": 3
   },
   {
+     "category": "answer",
+    "type": "dateFile",
+    "filename": "/var/log/vegeplan/survey/answer/answer.log",
+    "pattern": "-yyyy-MM-dd",
+    "backups": 3
+  },
+  {
      "category": "app",
     "type": "dateFile",
     "filename": "/var/log/vegeplan/survey/app.log",
@@ -26,6 +33,7 @@
   "levels": {
     "access": "ALL",
     "system": "ALL",
-    "error": "ALL"
+    "error": "ALL",
+    "data": "ALL"
   }
 }

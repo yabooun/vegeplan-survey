@@ -2,57 +2,49 @@
 <% question = function(index, duration, survey){ %>
     <div class="question question-<%=index%>">
         <% type = survey.type %>
-        <% list = survey.list %>
 
         <%# 質問 %>
-        <div class="question-text">
-            <p>質問<%=index %>. <%=survey.description %></p>
+        <div class="question-text question-cell">
+            <p><%=index %>. <%=survey.description %></p>
         </div>
         <%# 回答 %>
-            <div class="question-answer">
-                <% if(type == 1) { 
-                    selectList = list.split(',');
-                %>
-                <select name="<%=survey.name %>">
-                    <% selectList.forEach(function (contents, index) { %>
-                        <option value="<%=contents %>"><%=contents %></option>
-                    <% }); %>
-                </select>
+            <div class="question-answer question-cell">
+                <% if(type == 1) { %>
+                    <%- include('./controls/select', { survey: survey, index: index }); %>
                 <% } else if(type == 2) { %>
-                    <textarea name="<%=survey.name %>" rows="5" placeholder="<%=survey.description%>"></textarea>
+                    <textarea name="<%=survey.column_code %>" rows="5" placeholder="<%=survey.description%>"></textarea>
                 <% } else if(type == 3) { %>
-                    <input name="<%=survey.name %>" type="range" min="1" max="5" value="" class="input-star-range" /> 
+                    <input name="<%=survey.column_code %>" type="range" min="1" max="5" value="" class="input-star-range" /> 
                 <% } %>
             </div>
         <%# 次へ %>
-        <button onclick="window.showNext(<%=index %>)">
-            <div>次へ</div>
-            <div><%=index %> / <%=duration %></div>
-        </button>
+        <div class="question-next question-cell">
+            <div class="question-next-margin"></div>
+            <% if (index == duration) { %>
+                <a href="#" class="question-next-button" onclick="document.forms[0].submit()">送信！</a>
+            <% } else { %>
+                <a href="#" class="question-next-button" onclick="window.showNext(<%=index %>)">次へ >></a>
+            <% } %>
+            <div class="question-next-text"><%=index %> / <%=duration %></div>
+        </div>
     </div>
 <% }; %>
 
-<%# 本体 %>
-<!DOCTYPE html>
-<html lang="ja">
-    <header>
-        <title>VegePlanアンケート</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf8">
-        <meta name="robots" content="noindex,nofollow">
-        <meta name="author" content="Awcle.Inc">
-        <link rel="stylesheet" href="/css/default.css" type="text/css" />
-    </header>
-    <div class="header">
-        <div class="header-title">VegePlanアンケート</div>
-    </div>
+<%- include('./header') %>
 
+<form method="POST">
     <div class="contents">
+        <script type="text/javascript">
+            window.vegeplan = {
+                survey: {
+                    count: <%=surveyList.length %>
+                }
+            };
+        </script>
         <% surveyList.forEach(function(survey, index) { %>
             <% question(index+1, surveyList.length, survey); %>
         <% }); %>
     </div>
+</form>
 
-    <div class="footer">
-        <div class="footer-cp">Copyright © 2017 Awcle.Inc All Rights Reserved.</div>
-    </div>
-</html>
+<%- include('./footer') %>

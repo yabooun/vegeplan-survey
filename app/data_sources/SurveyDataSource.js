@@ -9,3 +9,23 @@ exports.findServey = function (id, callback) {
         }
     });
 };
+
+exports.saveServey = function (id, form, callback) {
+    if (!form) {
+        callback(false);
+        return;
+    }
+    form.code = id;
+    db.query('insert into survey_log (code, gender, age, work, count, scene, satisfaction, request) values (?, ?, ?, ?, ?, ?, ?, ?)',[
+        id,
+        form['gender'],
+        form['age'],
+        form['work'],
+        form['count'],
+        form['scene'],
+        form['satisfaction'],
+        form['request']
+    ], function(success, result) {
+        callback(success);
+    });
+};

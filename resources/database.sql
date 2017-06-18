@@ -46,6 +46,8 @@ create table puree (
 create table survey (
   id bigint primary key auto_increment,
   code nvarchar(30) not null,
+  column_code nvarchar(30) not null,
+  user_only int not null default 0,
   title text not null,
   description text not null,
   type int not null,
@@ -55,12 +57,30 @@ create table survey (
 );
 alter table survey ADD INDEX index_name(code);
 
+create table survey_log (
+  id bigint primary key auto_increment,
+  code nvarchar(30) not null,
+  
+  gender nvarchar(50),
+  age nvarchar(50),
+  work nvarchar(50),
+  count nvarchar(50),
+  scene nvarchar(50),
+  satisfaction int,
+  request text,
+
+  created_time timestamp not null default current_timestamp,
+  updated_time timestamp not null default current_timestamp on update current_timestamp
+);
+
 -- initial datas
 
-insert into survey (code, title, description, type, list) values ('consumer', '性別', 'あなたの性別を入力して下さい', 1, '男性,女性');
-insert into survey (code, title, description, type, list) values ('consumer', '年齢', 'あなたの年齢を入力して下さい', 1, '〜19歳,20〜34歳,35〜49歳,50歳〜');
-insert into survey (code, title, description, type, list) values ('consumer', '職種', 'あなたの職種を入力して下さい', 1, '経営,管理職,営業,バックオフィス,スタッフ,エンジニア');
-insert into survey (code, title, description, type, list) values ('consumer', '回数', 'VegePlanのスープを購入したのは何度目ですか？', 1, '初めて,2回目,3回目,4回目以降');
-insert into survey (code, title, description, type, list) values ('consumer', 'シーン', 'このスープはいつ飲みたいですか？', 1, '朝食,昼食,おやつ・間食,夕食,夜食');
-insert into survey (code, title, description, type, list) values ('consumer', '満足度', 'このスープの満足度を教えてください', 3, NULL);
-insert into survey (code, title, description, type, list) values ('consumer', '要望', 'その他なにか要望があれば教えてください', 2, NULL);
+insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'gender', 0, '性別', 'あなたの性別を入力して下さい', 1, '男性,女性');
+insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'age', 0, '年齢', 'あなたの年齢を入力して下さい', 1, '〜19歳,20〜34歳,35〜49歳,50歳〜');
+insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'work', 0 , '職種', 'あなたの職種を入力して下さい', 1, '経営,管理職,営業,バックオフィス,スタッフ,エンジニア');
+insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'count', 0, '回数', 'VegePlanのスープを購入したのは何度目ですか？', 1, '初めて,2回目,3回目,4回目以降');
+insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'scene', 1, 'シーン', 'このスープはいつ飲みたいですか？', 1, '朝食,昼食,おやつ・間食,夕食,夜食');
+insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'satisfaction', 1, '満足度', 'このスープの満足度を教えてください', 3, NULL);
+insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'request', 0, '要望', 'その他なにか要望があれば教えてください', 2, NULL);
+
+
