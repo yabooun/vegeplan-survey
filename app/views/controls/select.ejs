@@ -1,0 +1,13 @@
+<% var list = survey.list.split(',');
+   var count = list.length; %>
+   <div class="select-contents">
+       <% for (i = 0; i < count; i++) { %>
+           <button id="select-<%= survey.id %>" class="select-button" name="<%=list[i] %>" type="button" data-index="<%=index %>"><%=list[i] %></button>
+       <% } %>
+       <select id="form-select-<%= survey.id %>" name="<%= survey.column_code %>" style="display: none">
+           <option value="" />
+           <% for (i = 0; i < count; i++) { %>
+               <option value="<%=list[i] %>" />
+           <% } %>
+       </select>
+   </div>

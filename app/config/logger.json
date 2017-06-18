@@ -1,0 +1,39 @@
+{
+  "appenders": [{
+    "category": "query",
+    "type": "dateFile",
+    "filename": "/var/log/vegeplan/survey/query.log",
+    "pattern": "-yyyy-MM-dd",
+    "backups": 3
+  },
+  {
+     "category": "answer",
+    "type": "dateFile",
+    "filename": "/var/log/vegeplan/survey/answer/answer.log",
+    "pattern": "-yyyy-MM-dd",
+    "backups": 3
+  },
+  {
+     "category": "app",
+    "type": "dateFile",
+    "filename": "/var/log/vegeplan/survey/app.log",
+    "pattern": "-yyyy-MM-dd",
+    "backups": 3
+  },
+  {
+    "category": "access",
+    "type": "dateFile",
+    "filename": "/var/log/vegeplan/survey/access.log",
+    "pattern": "-yyyy-MM-dd",
+    "backups": 3
+  },
+  {
+    "type": "console"
+  }],
+  "levels": {
+    "access": "ALL",
+    "system": "ALL",
+    "error": "ALL",
+    "data": "ALL"
+  }
+}
