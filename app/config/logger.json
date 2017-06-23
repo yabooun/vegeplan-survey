@@ -11,6 +11,10 @@
     "type": "dateFile",
     "filename": "/var/log/vegeplan/survey/answer/answer.log",
     "pattern": "-yyyy-MM-dd",
+    "layout": {
+      "type": "pattern",
+      "pattern": "%m%n"
+    },
     "backups": 3
   },
   {

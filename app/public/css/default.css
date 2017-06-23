@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    background-color: #f8d4a0;
+    background-color: #fbfaf3;
 }
 div.question {
     width: 100%;
@@ -40,6 +40,11 @@ div.question-next {
 }
 div.question-next-text {
     width: 100px;
+    font-size: 32px;
     display: inline-block;
     text-align: center;
+}
+
+.question-next-button {
+    font-size: 32px;
 }

@@ -23,7 +23,6 @@ exports.saveServey = function(id, form, callback) {
     // ログ出力
     var now = new Date();
     form['log_date'] = now.toFormat("YYYY-MM-DD HH24:MI:SS");
-    logger.answer.info('test');
     logger.answer.info(JSON.stringify(form));
 
     // DBへ保存

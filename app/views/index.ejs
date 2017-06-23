@@ -5,27 +5,31 @@
 
         <%# 質問 %>
         <div class="question-text question-cell">
-            <p><%=index %>. <%=survey.description %></p>
+            <p><span class="title-count-<%=index %>"><%=index %></span>. <%=survey.description %></p>
         </div>
         <%# 回答 %>
             <div class="question-answer question-cell">
                 <% if(type == 1) { %>
                     <%- include('./controls/select', { survey: survey, index: index }); %>
                 <% } else if(type == 2) { %>
-                    <textarea name="<%=survey.column_code %>" rows="5" placeholder="<%=survey.description%>"></textarea>
+                    <textarea class="control-text-answer" name="<%=survey.column_code %>" rows="5" placeholder="<%=survey.description%>"></textarea>
                 <% } else if(type == 3) { %>
-                    <input name="<%=survey.column_code %>" type="range" min="1" max="5" value="" class="input-star-range" /> 
+                    <%- include('./controls/star', { survey: survey, index: index }); %>
                 <% } %>
             </div>
         <%# 次へ %>
         <div class="question-next question-cell">
-            <div class="question-next-margin"></div>
+            <div class="question-next-margin">&nbsp;</div>
             <% if (index == duration) { %>
-                <a href="#" class="question-next-button" onclick="document.forms[0].submit()">送信！</a>
+                <a href="" class="question-next-button" onclick="document.forms[0].submit()">送信！</a>
             <% } else { %>
-                <a href="#" class="question-next-button" onclick="window.showNext(<%=index %>)">次へ >></a>
+                <div class="question-next-button">&nbsp;</div>
             <% } %>
-            <div class="question-next-text"><%=index %> / <%=duration %></div>
+            <% if(index == 1) { %>
+                <div class="question-next-text">&nbsp;</div>
+            <% } else { %>
+                <div class="question-next-text question-duration" data-index="<%=index %>"><%=index %> / <%=duration %></div>
+            <% } %>
         </div>
     </div>
 <% }; %>
@@ -38,10 +42,19 @@
             window.vegeplan = {
                 survey: {
                     count: <%=surveyList.length %>
-                }
+                },
+                duration: <%=surveyList.length %>,
+                skippableCount: 0,
+                skippable: []
             };
         </script>
         <% surveyList.forEach(function(survey, index) { %>
+            <% if (survey.user_only == 1) { %>
+                <script>
+                    window.vegeplan.skippableCount += 1;
+                    window.vegeplan.skippable.push(<%=index %>);
+                </script>
+            <% } %>
             <% question(index+1, surveyList.length, survey); %>
         <% }); %>
     </div>
