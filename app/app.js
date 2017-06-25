@@ -4,6 +4,8 @@ var app = express();
 var survey = require('./use_cases/SurveyUseCase.js');
 var logger = require('./utils/logger.js');
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var logger = require('./utils/logger');
 
 // ejs設定
 app.set('views', __dirname + '/views');
@@ -12,6 +14,10 @@ app.use(partials());
 
 // フォーム設定
 app.use(bodyParser());
+app.use(methodOverride());
+app.use(logErrors);
+app.use(clientErrorHandler);
+app.use(errorHandler);
 
 // ログ設定
 app.use(logger.express);
@@ -46,5 +52,24 @@ app.post("/survey/:id", function(req, res, next){
 
 // サーバ起動
 var server = app.listen(3000, function(){
-    console.log("Node.js is listening to PORT:" + server.address().port);
+    logger.app.info("Node.js is listening to PORT:" + server.address().port);
 });
+
+// エラーハンドラ
+function logErrors(err, req, res, next) {
+  logger.app.error(err.stack);
+  next(err);
+}
+
+function clientErrorHandler(err, req, res, next) {
+  if (req.xhr) {
+    res.status(500).send({ error: 'System Error' });
+  } else {
+    next(err);
+  }
+}
+
+function errorHandler(err, req, res, next) {
+  res.status(500);
+  res.send('System Error');
+}

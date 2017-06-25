@@ -1,19 +1,15 @@
 var mysql  = require('mysql');
 var logger = require('../../utils/logger');
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'vegeplan'
-});
+var fs = require('fs');
+var config = JSON.parse(fs.readFileSync('config/mysql.json', 'utf8'));
+var env = process.argv[2];
+var conn = config[env];
 
-connection.connect(function(err) {
-    if (err) {
-        callback(false, null);
-        logger.app.error('MySQLAccess: error connecting: ' + err.stack);
-        return;
-    }
-    logger.app.info('MySQLAccess: connected as id ' + connection.threadId);
+var connection = mysql.createPool({
+  host     : conn.host,
+  user     : conn.user,
+  password : conn.password,
+  database : conn.database
 });
 
 exports.query = function (sql, condition, callback) {
