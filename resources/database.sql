@@ -1,5 +1,3 @@
-create database vegeplan;
-use vegeplan;
 create table consumer_curvey_log (
   id bigint primary key auto_increment,
   store_id bigint not null,
@@ -75,10 +73,10 @@ create table survey_log (
 
 -- initial datas
 
-insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'gender', 0, '性別', 'あなたの性別を入力して下さい', 1, '男性,女性');
-insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'age', 0, '年齢', 'あなたの年齢を入力して下さい', 1, '〜19歳,20〜34歳,35〜49歳,50歳〜');
-insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'work', 0 , '職種', 'あなたの職種を入力して下さい', 1, '経営,管理職,営業,バックオフィス,スタッフ,エンジニア');
 insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'count', 0, '回数', 'VegePlanのスープを購入したのは何度目ですか？', 1, '初めて,2回目,3回目,4回目以降');
+insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'gender', 0, '性別', 'あなたの性別を入力して下さい', 1, '男性,女性');
+insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'age', 0, '年齢', 'あなたの年齢を入力して下さい', 1, '20代,30代,40代,50代');
+insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'work', 0 , '職種', 'あなたの職種を入力して下さい', 1, '経営,管理職,営業系,技術・制作系,バックオフィス,スタッフ');
 insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'scene', 1, 'シーン', 'このスープはいつ飲みたいですか？', 1, '朝食,昼食,おやつ・間食,夕食,夜食');
 insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'satisfaction', 1, '満足度', 'このスープの満足度を教えてください', 3, NULL);
 insert into survey (code, column_code, user_only, title, description, type, list) values ('consumer', 'request', 0, '要望', 'その他なにか要望があれば教えてください', 2, NULL);
