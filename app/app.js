@@ -25,11 +25,16 @@ app.use(logger.express);
 // ルーティング
 app.use(express.static('./public'));
 
+app.get("/", function(req, res, next) {
+    res.render('index');
+    res.end();
+});
+
 // アンケートフォームの表示
 app.get("/survey/:id", function(req, res, next){
     survey.findServey(req.params.id, function(success, result) {
         if (success) {
-            res.render('index', {surveyList: result});
+            res.render('survey', {surveyList: result});
         } else {
             res.render('error');
         }

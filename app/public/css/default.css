@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     background-color: #fbfaf3;
+    color: #4a9087;
 }
 div.question {
     width: 100%;
@@ -47,4 +48,18 @@ div.question-next-text {
 
 .question-next-button {
     font-size: 32px;
+}
+
+/* top */
+.conteiner {
+    width: 100%;
+    height: 100%;
+}
+.cell2 {
+    font-size: 24pt;
+    letter-spacing: 0.2em;
+}
+.cell {
+    display: inline-block;
+    text-align: center;
 }
